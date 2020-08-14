@@ -3,7 +3,7 @@
 Splitter component for Angular 9+
 
 
-Inspired by https://github.com/wannabegeek/ninja-splitter. (Can be used up to Angular 8)
+Inspired by https://github.com/wannabegeek/ng2-split-pane. (Can be used up to Angular 8)
 
 There are 2 type of split panes: `horizontal-ninja` or a `vertical-ninja`
 
