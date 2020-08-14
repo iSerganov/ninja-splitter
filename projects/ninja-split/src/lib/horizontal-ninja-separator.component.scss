@@ -1,0 +1,23 @@
+:host {
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+  cursor: ns-resize;
+  position: relative;
+}
+:host:hover {
+  background-color: #fafafa;
+}
+
+.invisible-extension {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  min-height: 5px;
+}
+
+.handle {
+  width: 35px;
+  height: 100%;
+  background-color: #eee;
+  margin: auto;
+}

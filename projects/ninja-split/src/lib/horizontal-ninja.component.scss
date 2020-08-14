@@ -1,0 +1,14 @@
+.h-outer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
+.upper-component {
+  height: calc(50% - 4px);
+}
+
+.lower-component {
+  height: calc(50% - 4px);
+}
