@@ -57,7 +57,7 @@ Key | Range | Does
 **Import**
 ```typescript
 // Pleas note the module is not in the root
-import { NinjaSplitterModule } from 'ninja-splitter/lib/ninja-splitter';
+import { NinjaSplitterModule } from 'ninja-splitter';
 
 @NgModule({
     declarations: [
