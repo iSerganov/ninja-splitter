@@ -5,18 +5,18 @@ export class PositionService {
    * Provides read-only equivalent of jQuery's position function:
    * http://api.jquery.com/position/
    */
-  public static position(element:ElementRef): {width: number, height: number, top: number, left: number} {
-    let nativeEl: any = element.nativeElement
-    let elBCR = this.offset(nativeEl);
-    let offsetParentBCR = {top: 0, left: 0};
-    let offsetParentEl = this.parentOffsetEl(nativeEl);
+  public static position(element: ElementRef): { width: number, height: number, top: number, left: number } {
+    const nativeEl: any = element.nativeElement;
+    const elBCR = this.offset(nativeEl);
+    let offsetParentBCR = { top: 0, left: 0 };
+    const offsetParentEl = this.parentOffsetEl(nativeEl);
     if (offsetParentEl !== this.document) {
       offsetParentBCR = this.offset(offsetParentEl);
       offsetParentBCR.top += offsetParentEl.clientTop - offsetParentEl.scrollTop;
       offsetParentBCR.left += offsetParentEl.clientLeft - offsetParentEl.scrollLeft;
     }
 
-    let boundingClientRect = nativeEl.getBoundingClientRect();
+    const boundingClientRect = nativeEl.getBoundingClientRect();
     return {
       width: boundingClientRect.width || nativeEl.offsetWidth,
       height: boundingClientRect.height || nativeEl.offsetHeight,
@@ -29,9 +29,9 @@ export class PositionService {
    * Provides read-only equivalent of jQuery's offset function:
    * http://api.jquery.com/offset/
    */
-  public static offset(element:ElementRef): {width: number, height: number, top: number, left: number} {
-    let nativeEl: any = element.nativeElement
-    let boundingClientRect = nativeEl.getBoundingClientRect();
+  public static offset(element: ElementRef): { width: number, height: number, top: number, left: number } {
+    const nativeEl: any = element.nativeElement;
+    const boundingClientRect = nativeEl.getBoundingClientRect();
     return {
       width: boundingClientRect.width || nativeEl.offsetWidth,
       height: boundingClientRect.height || nativeEl.offsetHeight,
@@ -43,43 +43,31 @@ export class PositionService {
   /**
    * Provides coordinates for the targetEl in relation to hostEl
    */
-  public static positionElements(host: ElementRef, target: ElementRef, positionStr: any, appendToBody: any): {top: number, left: number} {
-    let hostEl: any = host.nativeElement
-    let targetEl: any = target.nativeElement
-    let positionStrParts = positionStr.split('-');
-    let pos0 = positionStrParts[0];
-    let pos1 = positionStrParts[1] || 'center';
-    let baseElementPos = appendToBody ?
+  public static positionElements(host: ElementRef, target: ElementRef, positionStr: any, appendToBody: any): { top: number, left: number } {
+    const hostEl: any = host.nativeElement;
+    const targetEl: any = target.nativeElement;
+    const positionStrParts = positionStr.split('-');
+    const pos0 = positionStrParts[0];
+    const pos1 = positionStrParts[1] || 'center';
+    const baseElementPos = appendToBody ?
       this.offset(hostEl) :
       this.position(hostEl);
-    let targetElWidth = targetEl.offsetWidth;
-    let targetElHeight = targetEl.offsetHeight;
+    const targetElWidth = targetEl.offsetWidth;
+    const targetElHeight = targetEl.offsetHeight;
 
-    let shiftWidth = {
-      center: function () {
-        return baseElementPos.left + baseElementPos.width / 2 - targetElWidth / 2;
-      },
-      left: function () {
-        return baseElementPos.left;
-      },
-      right: function () {
-        return baseElementPos.left + baseElementPos.width;
-      }
+    const shiftWidth = {
+      center: () => baseElementPos.left + baseElementPos.width / 2 - targetElWidth / 2,
+      left: () => baseElementPos.left,
+      right: () => baseElementPos.left + baseElementPos.width
     };
 
-    let shiftHeight = {
-      center: function ():number {
-        return baseElementPos.top + baseElementPos.height / 2 - targetElHeight / 2;
-      },
-      top: function ():number {
-        return baseElementPos.top;
-      },
-      bottom: function ():number {
-        return baseElementPos.top + baseElementPos.height;
-      }
+    const shiftHeight = {
+      center: () => baseElementPos.top + baseElementPos.height / 2 - targetElHeight / 2,
+      top: () => baseElementPos.top,
+      bottom: () => baseElementPos.top + baseElementPos.height
     };
 
-    let targetElementPos: {top: number, left: number};
+    let targetElementPos: { top: number, left: number };
     switch (pos0) {
       case 'right':
         targetElementPos = {
@@ -118,7 +106,7 @@ export class PositionService {
     return window.document;
   }
 
-  private static getStyle(nativeEl:any, cssProp:string): any {
+  private static getStyle(nativeEl: any, cssProp: string): any {
     // IE
     if (nativeEl.currentStyle) {
       return nativeEl.currentStyle[cssProp];
@@ -136,17 +124,17 @@ export class PositionService {
    * @param nativeEl - raw DOM element
    */
   private static isStaticPositioned(nativeEl: any): any {
-    return (this.getStyle(nativeEl, 'position') || 'static' ) === 'static';
+    return (this.getStyle(nativeEl, 'position') || 'static') === 'static';
   }
 
   /**
    * returns the closest, non-statically positioned parentOffset of a given element
-   * @param nativeEl
+   * @param nativeEl - raw DOM element
    */
   private static parentOffsetEl(nativeEl: any): any {
     let offsetParent = nativeEl.offsetParent || this.document;
     while (offsetParent && offsetParent !== this.document &&
-    this.isStaticPositioned(offsetParent)) {
+      this.isStaticPositioned(offsetParent)) {
       offsetParent = offsetParent.offsetParent;
     }
     return offsetParent || this.document;

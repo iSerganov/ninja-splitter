@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NinjaSeparatorComponent } from './ninja-separator.component'
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { NinjaSeparatorComponent } from './ninja-separator.component';
 
 @Component({
   selector: 'vertical-ninja-separator',
@@ -7,7 +7,7 @@ import { NinjaSeparatorComponent } from './ninja-separator.component'
   template: `
     <div
       #invisibleExtension
-      [hidden]="thickness >= 7"
+      [hidden]="thickness >= 5"
       class="invisible-extension"></div>
 
     <div class="handle"></div>
@@ -18,10 +18,10 @@ import { NinjaSeparatorComponent } from './ninja-separator.component'
 })
 export class VerticalNinjaSeparatorComponent
   extends NinjaSeparatorComponent
-  implements OnInit {
+  implements OnInit, AfterViewInit {
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.invisibleExtension.nativeElement.style.left =
-      -(5 - this.thickness) / 2 + "px";
+      -(5 - this.thickness) / 2 + 'px';
   }
 }

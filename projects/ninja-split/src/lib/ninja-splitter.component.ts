@@ -34,13 +34,13 @@ export class NinjaSplitterComponent implements OnChanges {
     if (!this.primaryToggledOff && !this.secondaryToggledOff) {
       let ratio: number = this.initialRatio;
       if (this.localStorageKey != null) {
-        let ratioStr = localStorage.getItem(this.localStorageKey);
+        const ratioStr = localStorage.getItem(this.localStorageKey);
         if (ratioStr != null) {
           ratio = JSON.parse(ratioStr);
         }
       }
 
-      let size = ratio * this.getTotalSize();
+      const size = ratio * this.getTotalSize();
       this.applySizeChange(size);
     }
   }
@@ -66,19 +66,19 @@ export class NinjaSplitterComponent implements OnChanges {
   }
 
   getTotalSize(): number {
-    throw ("NinjaSplitterComponent shouldn't be instantiated. Override this method.")
+    throw ('NinjaSplitterComponent shouldn\'t be instantiated. Override this method.')
   }
 
   getPrimarySize(): number {
-    throw ("NinjaSplitterComponent shouldn't be instantiated. Override this method.")
+    throw ('NinjaSplitterComponent shouldn\'t be instantiated. Override this method.')
   }
 
   getSecondarySize(): number {
-    throw ("NinjaSplitterComponent shouldn't be instantiated. Override this method.")
+    throw ('NinjaSplitterComponent shouldn\'t be instantiated. Override this method.')
   }
 
   dividerPosition(size: number): void {
-    throw ("NinjaSplitterComponent shouldn't be instantiated. Override this method.")
+    throw ('NinjaSplitterComponent shouldn\'t be instantiated. Override this method.')
   }
 
   getAvailableSize(): number {
@@ -97,7 +97,7 @@ export class NinjaSplitterComponent implements OnChanges {
     }
 
     this.dividerPosition(primarySize);
-    this.notifySizeDidChange.emit({ 'primary': this.getPrimarySize(), 'secondary': this.getSecondarySize() });
+    this.notifySizeDidChange.emit({ primary: this.getPrimarySize(), secondary: this.getSecondarySize() });
   }
 
   notifyWillChangeSize(resizing: boolean) {
@@ -123,11 +123,11 @@ export class NinjaSplitterComponent implements OnChanges {
 
   stopResizing() {
     this.isResizing = false;
-    this.primaryComponent.nativeElement.style.cursor = "auto";
-    this.secondaryComponent.nativeElement.style.cursor = "auto";
+    this.primaryComponent.nativeElement.style.cursor = 'auto';
+    this.secondaryComponent.nativeElement.style.cursor = 'auto';
 
     if (this.localStorageKey != null) {
-      let ratio = this.getPrimarySize() / (this.getTotalSize());
+      const ratio = this.getPrimarySize() / (this.getTotalSize());
       localStorage.setItem(this.localStorageKey, JSON.stringify(ratio));
     }
 
@@ -136,10 +136,20 @@ export class NinjaSplitterComponent implements OnChanges {
 
   @HostListener('mouseup', ['$event'])
   @HostListener('touchend', ['$event'])
-  onMouseup(event) {
+  onMouseup(): void {
     if (this.isResizing) {
-      this.stopResizing()
-      return false;
+      this.stopResizing();
+    }
+  }
+
+  @HostListener('document:mouseout', ['$event'])
+  onDocumentLeave(event): void {
+    if (this.isResizing) {
+      event = event ? event : window.event;
+      const from = event.relatedTarget || event.toElement;
+      if (!from || from.nodeName === 'HTML') {
+        this.stopResizing();
+      }
     }
   }
 }

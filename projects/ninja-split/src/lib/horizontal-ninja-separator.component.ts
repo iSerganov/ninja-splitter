@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NinjaSeparatorComponent } from './ninja-separator.component'
+import { NinjaSeparatorComponent } from './ninja-separator.component';
 
 @Component({
   selector: 'horizontal-ninja-separator',

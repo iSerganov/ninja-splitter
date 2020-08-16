@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { NinjaSplitterComponent } from './ninja-splitter.component'
-import { PositionService } from './position.service'
+import { NinjaSplitterComponent } from './ninja-splitter.component';
+import { PositionService } from './position.service';
 
 @Component({
   selector: 'vertical-ninja',
@@ -46,16 +46,16 @@ export class VerticalNinjaSplitterComponent extends NinjaSplitterComponent {
 
   dividerPosition(size: number) {
     const sizePct = (size / this.getTotalSize()) * 100;
-    this.primaryComponent.nativeElement.style.width = sizePct + "%";
+    this.primaryComponent.nativeElement.style.width = sizePct + '%';
     this.secondaryComponent.nativeElement.style.width =
-      "calc(" + (100 - sizePct) + "% - " +
-      (this.primaryToggledOff || this.secondaryToggledOff ? 0 : this.separatorThickness) + "px)";
+      'calc(' + (100 - sizePct) + '% - ' +
+      (this.primaryToggledOff || this.secondaryToggledOff ? 0 : this.separatorThickness) + 'px)';
   }
 
   @HostListener('mousemove', ['$event'])
   onMousemove(event: MouseEvent) {
       if (this.isResizing) {
-        let coords = PositionService.offset(this.primaryComponent);
+        const coords = PositionService.offset(this.primaryComponent);
         this.applySizeChange(event.pageX - coords.left);
         return false;
       }

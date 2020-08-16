@@ -1,6 +1,6 @@
 {
   "name": "ninja-splitter",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Convenient and easy to use splitter component for Angular 9+",
   "scripts": {
     "clean": "rm -rf || rmdir /s lib compiled",
@@ -16,7 +16,9 @@
     "Angular",
     "Splitter",
     "Split",
-    "Split pane"
+    "Split pane",
+    "Split view",
+    "Split frame"
   ],
   "author": {
     "name": "Igor Serganov",
@@ -27,9 +29,6 @@
     "url": "https://github.com/iSerganov/ninja-splitter/issues"
   },
   "homepage": "https://github.com/iSerganov/ninja-splitter/#readme",
-  "dependencies": {
-    "tslib": "^2.0.0"
-  },
   "peerDependencies": {
     "typescript": "^3.9.7",
     "@angular/animations": "^10.0.9",

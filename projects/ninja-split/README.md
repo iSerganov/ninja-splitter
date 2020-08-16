@@ -5,7 +5,7 @@ Splitter component for Angular 9+
 
 Inspired by https://github.com/wannabegeek/ng2-split-pane. (Can be used up to Angular 8)
 
-There are 2 type of split panes: `horizontal-ninja` or a `vertical-ninja`
+There are 2 types of split panes: `horizontal-ninja` and `vertical-ninja`
 
 ## Install
 -------
@@ -40,15 +40,15 @@ Key | Range | Does
     primary-component-initialratio="0.8">
 
     <div class="ninja-content-primary">
-        <div class="upper">
+        <span>
             Upper pane
-        </div>
+        </span>
     </div>
 
     <div class="ninja-content-secondary">
-        <div class="lower">
+        <span>
             Lower pane
-        </div>
+        </span>
     </div>
 
 </horizontal-ninja>
