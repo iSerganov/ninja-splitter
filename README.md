@@ -1,5 +1,7 @@
 # ninja-splitter
 
+[![npm version](https://badge.fury.io/js/ninja-splitter.svg)](https://www.npmjs.com/ninja-splitter)
+
 Splitter component for Angular 9+
 
 
