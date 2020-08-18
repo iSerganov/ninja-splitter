@@ -13,12 +13,13 @@ import { PositionService } from './position.service';
       class="left-component">
       <ng-content select=".ninja-content-primary"></ng-content>
     </div>
-    <vertical-ninja-separator
+    <ninja-separator
+      [horizontal]="false"
       #separator
       [hidden]="primaryToggledOff || secondaryToggledOff"
       [thickness]="separatorThickness"
       (notifyWillChangeSize)="notifyWillChangeSize($event)">
-    </vertical-ninja-separator>
+    </ninja-separator>
     <div
       #secondaryComponent
       [hidden]="secondaryToggledOff"
@@ -54,10 +55,10 @@ export class VerticalNinjaSplitterComponent extends NinjaSplitterComponent {
 
   @HostListener('mousemove', ['$event'])
   onMousemove(event: MouseEvent) {
-      if (this.isResizing) {
-        const coords = PositionService.offset(this.primaryComponent);
-        this.applySizeChange(event.pageX - coords.left);
-        return false;
-      }
+    if (this.isResizing) {
+      const coords = PositionService.offset(this.primaryComponent);
+      this.applySizeChange(event.pageX - coords.left);
+      return false;
     }
+  }
 }

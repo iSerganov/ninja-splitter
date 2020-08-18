@@ -1,8 +1,5 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { HorizontalNinjaSeparatorComponent } from './horizontal-ninja-separator.component';
-import { VerticalNinjaSeparatorComponent } from './vertical-ninja-separator.component';
 import { HorizontalNinjaSplitterComponent } from './horizontal-ninja.component';
 import { VerticalNinjaSplitterComponent } from './vertical-ninja.component';
 import { NinjaSeparatorComponent } from './ninja-separator.component';
@@ -20,8 +17,6 @@ export function delayedInit(): ModuleWithProviders<NinjaSplitterModule> {
   declarations: [
     HorizontalNinjaSplitterComponent,
     VerticalNinjaSplitterComponent,
-    HorizontalNinjaSeparatorComponent,
-    VerticalNinjaSeparatorComponent,
     NinjaSeparatorComponent,
     NinjaSplitterComponent
   ],

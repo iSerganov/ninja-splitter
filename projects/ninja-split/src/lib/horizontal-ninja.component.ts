@@ -13,12 +13,12 @@ import { PositionService } from './position.service';
       class="upper-component">
       <ng-content select=".ninja-content-primary"></ng-content>
     </div>
-    <horizontal-ninja-separator
+    <ninja-separator
       #separator
       [hidden]="primaryToggledOff || secondaryToggledOff"
       [thickness]="separatorThickness"
       (notifyWillChangeSize)="notifyWillChangeSize($event)">
-    </horizontal-ninja-separator>
+    </ninja-separator>
     <div
       #secondaryComponent
       [hidden]="secondaryToggledOff"

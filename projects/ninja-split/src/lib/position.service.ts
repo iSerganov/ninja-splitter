@@ -1,10 +1,6 @@
 import { ElementRef } from '@angular/core';
 // @dynamic
 export class PositionService {
-  /**
-   * Provides read-only equivalent of jQuery's position function:
-   * http://api.jquery.com/position/
-   */
   public static position(element: ElementRef): { width: number, height: number, top: number, left: number } {
     const nativeEl: any = element.nativeElement;
     const elBCR = this.offset(nativeEl);
@@ -25,10 +21,6 @@ export class PositionService {
     };
   }
 
-  /**
-   * Provides read-only equivalent of jQuery's offset function:
-   * http://api.jquery.com/offset/
-   */
   public static offset(element: ElementRef): { width: number, height: number, top: number, left: number } {
     const nativeEl: any = element.nativeElement;
     const boundingClientRect = nativeEl.getBoundingClientRect();
@@ -40,9 +32,6 @@ export class PositionService {
     };
   }
 
-  /**
-   * Provides coordinates for the targetEl in relation to hostEl
-   */
   public static positionElements(host: ElementRef, target: ElementRef, positionStr: any, appendToBody: any): { top: number, left: number } {
     const hostEl: any = host.nativeElement;
     const targetEl: any = target.nativeElement;
@@ -119,18 +108,10 @@ export class PositionService {
     return nativeEl.style[cssProp];
   }
 
-  /**
-   * Checks if a given element is statically positioned
-   * @param nativeEl - raw DOM element
-   */
   private static isStaticPositioned(nativeEl: any): any {
     return (this.getStyle(nativeEl, 'position') || 'static') === 'static';
   }
 
-  /**
-   * returns the closest, non-statically positioned parentOffset of a given element
-   * @param nativeEl - raw DOM element
-   */
   private static parentOffsetEl(nativeEl: any): any {
     let offsetParent = nativeEl.offsetParent || this.document;
     while (offsetParent && offsetParent !== this.document &&
