@@ -104,7 +104,6 @@ export class PositionService {
     if (this.window.getComputedStyle) {
       return this.window.getComputedStyle(nativeEl)[cssProp];
     }
-    // finally try and get inline style
     return nativeEl.style[cssProp];
   }
 
@@ -119,5 +118,5 @@ export class PositionService {
       offsetParent = offsetParent.offsetParent;
     }
     return offsetParent || this.document;
-  };
+  }
 }

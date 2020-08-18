@@ -51,9 +51,8 @@ export class NinjaSeparatorComponent implements AfterViewInit {
   constructor() { }
 
   @HostListener('mousedown', ['$event'])
-  onMousedown(event) {
+  onMousedown(event): void {
     this.notifyWillChangeSize.emit(true);
-    return false;
   }
 
   ngAfterViewInit(): void {

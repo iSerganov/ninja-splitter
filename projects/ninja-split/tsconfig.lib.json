@@ -6,6 +6,7 @@
     "target": "es2015",
     "declaration": true,
     "inlineSources": true,
+    "removeComments": true,
     "types": [],
     "lib": [
       "dom",
@@ -15,7 +16,8 @@
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
-    "enableResourceInlining": true
+    "enableResourceInlining": true,
+    "skipMetadataEmit": true
   },
   "exclude": [
     "src/test.ts",
