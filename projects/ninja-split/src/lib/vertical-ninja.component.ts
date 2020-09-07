@@ -4,7 +4,19 @@ import { PositionService } from './position.service';
 
 @Component({
   selector: 'vertical-ninja',
-  styleUrls: ['vertical-ninja.component.scss'],
+  styles: [`.v-outer {
+    height: 100%;
+    width: 100%;
+    display: flex;
+  }
+
+  .left-component {
+    width: calc(50% - 4px);
+  }
+
+  .right-component {
+    width: calc(50% - 4px);
+  }`],
   template: `
   <div #outer class="v-outer">
     <div

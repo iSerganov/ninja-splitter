@@ -1,6 +1,6 @@
 import {
   Component, ViewChild, ElementRef, HostListener, EventEmitter, Input,
-  Output, OnChanges, SimpleChanges
+  Output, OnChanges, SimpleChanges, AfterViewInit
 } from '@angular/core';
 
 @Component({
@@ -8,7 +8,7 @@ import {
   template: '',
   host: { 'style': 'height: 100%' }
 })
-export class NinjaSplitterComponent implements OnChanges {
+export class NinjaSplitterComponent implements OnChanges, AfterViewInit {
 
   @ViewChild('primaryComponent', { static: true }) primaryComponent: ElementRef;
   @ViewChild('secondaryComponent', { static: true }) secondaryComponent: ElementRef;
@@ -25,10 +25,10 @@ export class NinjaSplitterComponent implements OnChanges {
   @Output('on-ended-resizing') notifyEndedResizing: EventEmitter<any> = new EventEmitter<any>();
 
   primarySizeBeforeTogglingOff: number;
-  dividerSize: number = 8.0;
-  isResizing: boolean = false;
+  dividerSize = 8.0;
+  isResizing = false;
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.checkBothToggledOff();
 
     if (!this.primaryToggledOff && !this.secondaryToggledOff) {
@@ -36,7 +36,7 @@ export class NinjaSplitterComponent implements OnChanges {
       if (this.localStorageKey != null) {
         const ratioStr = localStorage.getItem(this.localStorageKey);
         if (ratioStr != null) {
-          ratio = JSON.parse(ratioStr);
+          ratio = +ratioStr;
         }
       }
 
@@ -45,7 +45,7 @@ export class NinjaSplitterComponent implements OnChanges {
     }
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     this.checkBothToggledOff();
 
     if (changes['primaryToggledOff']) {
@@ -134,8 +134,8 @@ export class NinjaSplitterComponent implements OnChanges {
     this.notifyEndedResizing.emit();
   }
 
-  @HostListener('mouseup', ['$event'])
-  @HostListener('touchend', ['$event'])
+  @HostListener('mouseup')
+  @HostListener('touchend')
   onMouseup(): void {
     if (this.isResizing) {
       this.stopResizing();

@@ -6,15 +6,11 @@ import { Component, HostListener, EventEmitter, Input, Output, ViewChild, Elemen
   template: `
     <div
       #invisibleExtension
-      [class.horizontal]="horizontal"
-      [class.vertical]="vertical"
       [hidden]="thickness >= 5"
       class="invisible-extension"></div>
 
     <div
-        class="handle"
-        [class.horizontal]="horizontal"
-        [class.vertical]="!horizontal">
+        class="handle">
     </div>
   `,
   host: {
@@ -50,8 +46,8 @@ export class NinjaSeparatorComponent implements AfterViewInit {
 
   constructor() { }
 
-  @HostListener('mousedown', ['$event'])
-  onMousedown(event): void {
+  @HostListener('mousedown')
+  onMousedown(): void {
     this.notifyWillChangeSize.emit(true);
   }
 

@@ -9,7 +9,7 @@ export function delayedInit(): ModuleWithProviders<NinjaSplitterModule> {
   return {
     ngModule: NinjaSplitterModule,
     providers: []
-  }
+  };
 }
 
 @NgModule({
