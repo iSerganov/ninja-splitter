@@ -33,10 +33,11 @@ You can define the following css variables to override default styling:
 
 CSS-variable | Responsible for | Default
 --- | --- | ---
-`--ninja-separator-background-color` | Background colod of the separator HTML element | #fff
-`--ninja-separator-hover-background-color` | Hover background colod of the separator HTML element | #fafafa
+`--ninja-separator-background-color` | Background color of the separator HTML element | #fff
+`--ninja-separator-hover-background-color` | Hover background color of the separator HTML element | #fafafa
 `--ninja-separator-hcursor` | Horizontal separator cursor | ns-resize
 `--ninja-separator-vcursor` | Vertical separator cursor | ew-resize
+
 
 ```javascript
 <horizontal-ninja
