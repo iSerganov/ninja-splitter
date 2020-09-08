@@ -29,6 +29,14 @@ Key | Range | Does
 `primary-component-initialratio` | initial value in a ratio of primary/secondary (range 0-1) | The initial size to create the primary pane (secondary will fill the remaining), this value will be over-ridden if a value is found in the local storage.
 `local-storage-key` | string value used as the key  | If this value is present, uses this key withing localstorage to remember the position of the divider bar
 
+You can define the following css variables to override default styling:
+
+CSS-variable | Responsible for | Default
+--- | --- | ---
+`--ninja-separator-background-color` | Background colod of the separator HTML element | #fff
+`--ninja-separator-hover-background-color` | Hover background colod of the separator HTML element | #fafafa
+`--ninja-separator-hcursor` | Horizontal separator cursor | ns-resize
+`--ninja-separator-vcursor` | Vertical separator cursor | ew-resize
 
 ```javascript
 <horizontal-ninja
@@ -70,7 +78,6 @@ import { NinjaSplitterModule } from 'ninja-splitter';
 })
 export class AppModule { }
 ```
-
 
 ## Events
 
