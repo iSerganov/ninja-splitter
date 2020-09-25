@@ -4,7 +4,7 @@ import { PositionService } from './position.service';
 
 @Component({
   selector: 'vertical-ninja',
-  styles: [`.v-outer {
+  styles: [`:host {
     height: 100%;
     width: 100%;
     display: flex;
@@ -52,7 +52,7 @@ export class VerticalNinjaSplitterComponent extends NinjaSplitterComponent {
   }
 
   dividerPosition(size: number): void {
-    const sizePct = (size / this._self.nativeElement.offsetWidth) * 100;
+    const sizePct = (size / this._self.nativeElement[this.sizePropertyName]) * 100;
     this.primaryComponent.nativeElement.style.width = sizePct + '%';
     this.secondaryComponent.nativeElement.style.width =
       'calc(' + (100 - sizePct) + '% - ' +
