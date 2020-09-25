@@ -30,6 +30,19 @@ Key | Range | Does
 `local-storage-key` | string value used as the key  | If this value is present, uses this key withing localstorage to remember the position of the divider bar
 
 
+## Styling
+-------
+You can define the following css variables to override default styling:
+
+CSS-variable | Responsible for | Default
+--- | --- | ---
+`--ninja-separator-background-color` | Background color of the separator HTML element | #fff
+`--ninja-separator-hover-background-color` | Hover background color of the separator HTML element | #fafafa
+`--ninja-separator-hcursor` | Horizontal separator cursor | ns-resize
+`--ninja-separator-vcursor` | Vertical separator cursor | ew-resize
+
+## Example
+-------
 ```javascript
 <horizontal-ninja
     primary-minsize="50"
@@ -70,7 +83,6 @@ import { NinjaSplitterModule } from 'ninja-splitter';
 })
 export class AppModule { }
 ```
-
 
 ## Events
 

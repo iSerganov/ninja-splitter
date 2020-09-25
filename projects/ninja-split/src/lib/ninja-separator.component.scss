@@ -1,17 +1,17 @@
 :host {
-  background-color: #fff;
+  background-color: var(--ninja-separator-background-color, #fff);
   &.vertical {
     border-left: 1px solid #ddd;
-    cursor: ew-resize;
+    cursor: var(--ninja-separator-vcursor, ew-resize);
   }
   &.horizontal {
     border-top: 1px solid #ddd;
-    cursor: ns-resize;
+    cursor: var(--ninja-separator-hcursor, ns-resize);
   }
   position: relative;
 }
 :host:hover {
-  background-color: #fafafa;
+  background-color: var(--ninja-separator-hover-background-color, #fafafa);
 }
 
 .invisible-extension {

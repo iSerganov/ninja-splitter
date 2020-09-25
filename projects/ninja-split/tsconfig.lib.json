@@ -4,6 +4,7 @@
   "compilerOptions": {
     "outDir": "../../out-tsc/lib",
     "target": "es2015",
+    "module": "es2020",
     "declaration": true,
     "inlineSources": true,
     "removeComments": true,
@@ -15,7 +16,6 @@
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
-    "strictMetadataEmit": true,
     "enableResourceInlining": true,
     "skipMetadataEmit": true
   },
