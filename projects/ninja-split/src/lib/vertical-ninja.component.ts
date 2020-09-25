@@ -18,7 +18,6 @@ import { PositionService } from './position.service';
     width: calc(50% - 4px);
   }`],
   template: `
-  <div #outer class="v-outer">
     <div
       #primaryComponent
       [hidden]="primaryToggledOff"
@@ -38,16 +37,11 @@ import { PositionService } from './position.service';
       class="right-component">
       <ng-content select=".ninja-content-secondary"></ng-content>
     </div>
-  </div>
   `,
 })
 export class VerticalNinjaSplitterComponent extends NinjaSplitterComponent {
 
   @ViewChild('outer', { static: true }) outerContainer: ElementRef;
-
-  getTotalSize(): number {
-    return this.outerContainer.nativeElement.offsetWidth;
-  }
 
   getPrimarySize(): number {
     return this.primaryComponent.nativeElement.offsetWidth;
@@ -57,8 +51,8 @@ export class VerticalNinjaSplitterComponent extends NinjaSplitterComponent {
     return this.secondaryComponent.nativeElement.offsetWidth;
   }
 
-  dividerPosition(size: number) {
-    const sizePct = (size / this.getTotalSize()) * 100;
+  dividerPosition(size: number): void {
+    const sizePct = (size / this._self.nativeElement.offsetWidth) * 100;
     this.primaryComponent.nativeElement.style.width = sizePct + '%';
     this.secondaryComponent.nativeElement.style.width =
       'calc(' + (100 - sizePct) + '% - ' +
@@ -66,11 +60,10 @@ export class VerticalNinjaSplitterComponent extends NinjaSplitterComponent {
   }
 
   @HostListener('mousemove', ['$event'])
-  onMousemove(event: MouseEvent) {
+  onMousemove(event: MouseEvent): void {
     if (this.isResizing) {
       const coords = PositionService.offset(this.primaryComponent);
       this.applySizeChange(event.pageX - coords.left);
-      return false;
     }
   }
 }

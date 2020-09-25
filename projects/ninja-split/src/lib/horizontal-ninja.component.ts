@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, HostListener, Input } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener, Input, Self } from '@angular/core';
 import { NinjaSplitterComponent } from './ninja-splitter.component';
 import { PositionService } from './position.service';
 
@@ -16,7 +16,6 @@ import { PositionService } from './position.service';
     height: calc(50% - 4px);
   }`],
   template: `
-  <div #outer class="h-outer">
     <div
       #primaryComponent
       [hidden]="primaryToggledOff"
@@ -35,16 +34,9 @@ import { PositionService } from './position.service';
       class="lower-component">
       <ng-content select=".ninja-content-secondary"></ng-content>
     </div>
-  </div>
   `,
 })
 export class HorizontalNinjaSplitterComponent extends NinjaSplitterComponent {
-
-  @ViewChild('outer', { static: true }) outerContainer: ElementRef;
-
-  getTotalSize(): number {
-    return this.outerContainer.nativeElement.offsetHeight;
-  }
 
   getPrimarySize(): number {
     return this.primaryComponent.nativeElement.offsetHeight;
@@ -55,7 +47,7 @@ export class HorizontalNinjaSplitterComponent extends NinjaSplitterComponent {
   }
 
   dividerPosition(size: number): void {
-    const sizePct = (size / this.getTotalSize()) * 100.0;
+    const sizePct = (size / this._self.nativeElement.offsetHeight) * 100.0;
     this.primaryComponent.nativeElement.style.height = sizePct + '%';
     this.secondaryComponent.nativeElement.style.height = `calc(${100 - sizePct}% -
           ${+!(this.primaryToggledOff || this.secondaryToggledOff) * this.separatorThickness}px)`;

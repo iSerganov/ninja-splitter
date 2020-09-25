@@ -1,6 +1,6 @@
 import {
   Component, ViewChild, ElementRef, HostListener, EventEmitter, Input,
-  Output, OnChanges, SimpleChanges, AfterViewInit
+  Output, OnChanges, SimpleChanges, AfterViewInit, Self
 } from '@angular/core';
 
 @Component({
@@ -24,6 +24,9 @@ export class NinjaSplitterComponent implements OnChanges, AfterViewInit {
   @Output('on-begin-resizing') notifyBeginResizing: EventEmitter<any> = new EventEmitter<any>();
   @Output('on-ended-resizing') notifyEndedResizing: EventEmitter<any> = new EventEmitter<any>();
 
+  constructor(@Self() protected _self: ElementRef) {
+  }
+
   primarySizeBeforeTogglingOff: number;
   dividerSize = 8.0;
   isResizing = false;
@@ -40,7 +43,7 @@ export class NinjaSplitterComponent implements OnChanges, AfterViewInit {
         }
       }
 
-      const size = ratio * this.getTotalSize();
+      const size = ratio * this._self.nativeElement.offsetHeight;
       this.applySizeChange(size);
     }
   }
@@ -48,25 +51,21 @@ export class NinjaSplitterComponent implements OnChanges, AfterViewInit {
   ngOnChanges(changes: SimpleChanges): void {
     this.checkBothToggledOff();
 
-    if (changes['primaryToggledOff']) {
-      if (changes['primaryToggledOff'].currentValue === true) {
+    if (changes.primaryToggledOff) {
+      if (changes.primaryToggledOff.currentValue === true) {
         this.primarySizeBeforeTogglingOff = this.getPrimarySize();
         this.applySizeChange(0);
       } else {
         this.applySizeChange(this.primarySizeBeforeTogglingOff);
       }
-    } else if (changes['secondaryToggledOff']) {
-      if (changes['secondaryToggledOff'].currentValue === true) {
+    } else if (changes.secondaryToggledOff) {
+      if (changes.secondaryToggledOff.currentValue === true) {
         this.primarySizeBeforeTogglingOff = this.getPrimarySize();
-        this.applySizeChange(this.getTotalSize());
+        this.applySizeChange(this._self.nativeElement.offsetHeight);
       } else {
         this.applySizeChange(this.primarySizeBeforeTogglingOff);
       }
     }
-  }
-
-  getTotalSize(): number {
-    throw ('NinjaSplitterComponent shouldn\'t be instantiated. Override this method.')
   }
 
   getPrimarySize(): number {
@@ -82,7 +81,7 @@ export class NinjaSplitterComponent implements OnChanges, AfterViewInit {
   }
 
   getAvailableSize(): number {
-    return this.getTotalSize() - this.dividerSize;
+    return this._self.nativeElement.offsetHeight) - this.dividerSize;
   }
 
   applySizeChange(size: number) {
@@ -93,7 +92,7 @@ export class NinjaSplitterComponent implements OnChanges, AfterViewInit {
     if (this.primaryToggledOff) {
       primarySize = 0;
     } else if (this.secondaryToggledOff) {
-      primarySize = this.getTotalSize();
+      primarySize = this._self.nativeElement.offsetHeight;
     }
 
     this.dividerPosition(primarySize);
@@ -127,7 +126,7 @@ export class NinjaSplitterComponent implements OnChanges, AfterViewInit {
     this.secondaryComponent.nativeElement.style.cursor = 'auto';
 
     if (this.localStorageKey != null) {
-      const ratio = this.getPrimarySize() / (this.getTotalSize());
+      const ratio = this.getPrimarySize() / (this._self.nativeElement.offsetHeight);
       localStorage.setItem(this.localStorageKey, JSON.stringify(ratio));
     }
 
