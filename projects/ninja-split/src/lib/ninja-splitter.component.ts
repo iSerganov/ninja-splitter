@@ -1,44 +1,53 @@
 import {
-  Component, ViewChild, ElementRef, HostListener, EventEmitter, Input,
-  Output, OnChanges, SimpleChanges, AfterViewInit, Self
+  Component,
+  ViewChild,
+  ElementRef,
+  HostListener,
+  EventEmitter,
+  Input,
+  Output,
+  OnChanges,
+  SimpleChanges,
+  AfterViewInit,
+  Self,
 } from '@angular/core';
 
 @Component({
   selector: 'ninja-splitter',
   template: '',
-  host: { 'style': 'height: 100%' }
+  host: { style: 'height: 100%' },
 })
 export class NinjaSplitterComponent implements OnChanges, AfterViewInit {
-
   @ViewChild('primaryComponent', { static: true }) primaryComponent: ElementRef;
-  @ViewChild('secondaryComponent', { static: true }) secondaryComponent: ElementRef;
+  @ViewChild('secondaryComponent', { static: true })
+  secondaryComponent: ElementRef;
 
-  @Input('primary-component-initialratio') initialRatio: number = 0.5;
-  @Input('primary-minsize') primaryMinSize: number = 0;
-  @Input('secondary-minsize') secondaryMinSize: number = 0;
-  @Input('separator-width-px') separatorThickness: number = 5;
-  @Input('primary-component-toggle') primaryToggledOff: boolean = false;
-  @Input('secondary-component-toggle') secondaryToggledOff: boolean = false;
+  @Input('primary-component-initialratio') initialRatio = 0.5;
+  @Input('primary-minsize') primaryMinSize = 0;
+  @Input('secondary-minsize') secondaryMinSize = 0;
+  @Input('separator-width-px') separatorThickness = 5;
+  @Input('primary-component-toggle') primaryToggledOff = false;
+  @Input('secondary-component-toggle') secondaryToggledOff = false;
   @Input('local-storage-key') localStorageKey: string | null = null;
-  @Output('on-change') notifySizeDidChange: EventEmitter<any> = new EventEmitter<any>();
-  @Output('on-begin-resizing') notifyBeginResizing: EventEmitter<any> = new EventEmitter<any>();
-  @Output('on-ended-resizing') notifyEndedResizing: EventEmitter<any> = new EventEmitter<any>();
+  @Output('on-change')
+  notifySizeDidChange: EventEmitter<any> = new EventEmitter<any>();
+  @Output('on-begin-resizing')
+  notifyBeginResizing: EventEmitter<any> = new EventEmitter<any>();
+  @Output('on-ended-resizing')
+  notifyEndedResizing: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(
-    @Self() protected _self: ElementRef,
-  ) { }
+  constructor(@Self() protected self: ElementRef) {}
 
   primarySizeBeforeTogglingOff: number;
   dividerSize = 8.0;
   isResizing = false;
   protected get sizePropertyName(): 'offsetWidth' | 'offsetHeight' {
-    if (this._self.nativeElement.nodeName === 'HORIZONTAL-NINJA') {
+    if (this.self.nativeElement.nodeName === 'HORIZONTAL-NINJA') {
       return 'offsetHeight';
-    }
-    else {
+    } else {
       return 'offsetWidth';
     }
-  };
+  }
 
   ngAfterViewInit(): void {
     this.checkBothToggledOff();
@@ -52,7 +61,7 @@ export class NinjaSplitterComponent implements OnChanges, AfterViewInit {
         }
       }
 
-      const size = ratio * this._self.nativeElement[this.sizePropertyName];
+      const size = ratio * this.self.nativeElement[this.sizePropertyName];
       this.applySizeChange(size);
     }
   }
@@ -70,7 +79,7 @@ export class NinjaSplitterComponent implements OnChanges, AfterViewInit {
     } else if (changes.secondaryToggledOff) {
       if (changes.secondaryToggledOff.currentValue === true) {
         this.primarySizeBeforeTogglingOff = this.getPrimarySize();
-        this.applySizeChange(this._self.nativeElement[this.sizePropertyName]);
+        this.applySizeChange(this.self.nativeElement[this.sizePropertyName]);
       } else {
         this.applySizeChange(this.primarySizeBeforeTogglingOff);
       }
@@ -78,34 +87,45 @@ export class NinjaSplitterComponent implements OnChanges, AfterViewInit {
   }
 
   getPrimarySize(): number {
-    throw new Error(('NinjaSplitterComponent shouldn\'t be instantiated. Override this method.'))
+    throw new Error(
+      "NinjaSplitterComponent shouldn't be instantiated. Override this method."
+    );
   }
 
   getSecondarySize(): number {
-    throw new Error(('NinjaSplitterComponent shouldn\'t be instantiated. Override this method.'))
+    throw new Error(
+      "NinjaSplitterComponent shouldn't be instantiated. Override this method."
+    );
   }
 
   dividerPosition(size: number): void {
-    throw new Error(('NinjaSplitterComponent shouldn\'t be instantiated. Override this method.'))
+    throw new Error(
+      "NinjaSplitterComponent shouldn't be instantiated. Override this method."
+    );
   }
 
   getAvailableSize(): number {
-    return this._self.nativeElement[this.sizePropertyName] - this.dividerSize;
+    return this.self.nativeElement[this.sizePropertyName] - this.dividerSize;
   }
 
   applySizeChange(size: number): void {
     let primarySize = this.checkValidBounds(
-      size, this.primaryMinSize,
-      this.getAvailableSize() - this.secondaryMinSize);
+      size,
+      this.primaryMinSize,
+      this.getAvailableSize() - this.secondaryMinSize
+    );
 
     if (this.primaryToggledOff) {
       primarySize = 0;
     } else if (this.secondaryToggledOff) {
-      primarySize = this._self.nativeElement[this.sizePropertyName];
+      primarySize = this.self.nativeElement[this.sizePropertyName];
     }
 
     this.dividerPosition(primarySize);
-    this.notifySizeDidChange.emit({ primary: this.getPrimarySize(), secondary: this.getSecondarySize() });
+    this.notifySizeDidChange.emit({
+      primary: this.getPrimarySize(),
+      secondary: this.getSecondarySize(),
+    });
   }
 
   notifyWillChangeSize(resizing: boolean): void {
@@ -114,16 +134,20 @@ export class NinjaSplitterComponent implements OnChanges, AfterViewInit {
   }
 
   checkValidBounds(newSize: number, minSize: number, maxSize: number): number {
-    return newSize >= minSize
-      ? (newSize <= maxSize)
-        ? newSize
-        : maxSize
-      : minSize;
+    if (newSize >= minSize && newSize <= maxSize) {
+      return newSize;
+    } else if (maxSize - newSize > 0) {
+      return minSize;
+    } else {
+      return maxSize;
+    }
   }
 
   checkBothToggledOff(): void {
     if (this.primaryToggledOff && this.secondaryToggledOff) {
-      throw new Error(('You cannot toggle off both the primary and secondary component'));
+      throw new Error(
+        'You cannot toggle off both the primary and secondary component'
+      );
     }
   }
 
@@ -133,7 +157,8 @@ export class NinjaSplitterComponent implements OnChanges, AfterViewInit {
     this.secondaryComponent.nativeElement.style.cursor = 'auto';
 
     if (this.localStorageKey != null) {
-      const ratio = this.getPrimarySize() / (this._self.nativeElement[this.sizePropertyName]);
+      const ratio =
+        this.getPrimarySize() / this.self.nativeElement[this.sizePropertyName];
       localStorage.setItem(this.localStorageKey, JSON.stringify(ratio));
     }
 

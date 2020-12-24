@@ -10,18 +10,14 @@ import { PositionService } from './position.service';
     display: flex;
   }
 
-  .left-component {
-    width: calc(50% - 4px);
-  }
-
-  .right-component {
+  .ninja-com {
     width: calc(50% - 4px);
   }`],
   template: `
     <div
       #primaryComponent
       [hidden]="primaryToggledOff"
-      class="left-component">
+      class="left ninja-com">
       <ng-content select=".ninja-content-primary"></ng-content>
     </div>
     <ninja-separator
@@ -34,7 +30,7 @@ import { PositionService } from './position.service';
     <div
       #secondaryComponent
       [hidden]="secondaryToggledOff"
-      class="right-component">
+      class="right ninja-com">
       <ng-content select=".ninja-content-secondary"></ng-content>
     </div>
   `,
@@ -52,7 +48,7 @@ export class VerticalNinjaSplitterComponent extends NinjaSplitterComponent {
   }
 
   dividerPosition(size: number): void {
-    const sizePct = (size / this._self.nativeElement[this.sizePropertyName]) * 100;
+    const sizePct = (size / this.self.nativeElement[this.sizePropertyName]) * 100;
     this.primaryComponent.nativeElement.style.width = sizePct + '%';
     this.secondaryComponent.nativeElement.style.width =
       'calc(' + (100 - sizePct) + '% - ' +

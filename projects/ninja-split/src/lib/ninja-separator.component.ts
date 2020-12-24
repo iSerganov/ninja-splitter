@@ -1,31 +1,22 @@
-import { Component, HostListener, EventEmitter, Input, Output, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, HostListener, EventEmitter, Input, Output, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'ninja-separator',
   styleUrls: ['ninja-separator.component.scss'],
   template: `
-    <div
-      #invisibleExtension
-      [hidden]="thickness >= 5"
-      class="invisible-extension"></div>
-
-    <div
-        class="handle">
-    </div>
-  `,
-  host: {
-    '[style.width]': 'width',
-    '[style.height]': 'height',
-    '[class.horizontal]': 'horizontal',
-    '[class.vertical]': '!horizontal',
-  }
+    <div class="handle"></div>
+  `
 })
-export class NinjaSeparatorComponent implements AfterViewInit {
-
+export class NinjaSeparatorComponent {
   @Input() thickness: number;
-  @Input() horizontal = true;
-  @Output() notifyWillChangeSize: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+  @Input() @HostBinding('class.horizontal') horizontal = true;
+  @Output()
+  notifyWillChangeSize: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @HostBinding('class.vertical')
+  public get vertical(): boolean {
+    return !this.horizontal;
+  }
+  @HostBinding('style.width')
   public get width(): string {
     if (this.horizontal) {
       return `inherit`;
@@ -33,26 +24,19 @@ export class NinjaSeparatorComponent implements AfterViewInit {
       return `${this.thickness}px`;
     }
   }
-
+  @HostBinding('style.hight')
   public get height(): string {
-    if (!this.horizontal) {
+    if (this.vertical) {
       return `inherit`;
     } else {
       return `${this.thickness}px`;
     }
   }
 
-  @ViewChild('invisibleExtension') invisibleExtension: ElementRef;
-
-  constructor() { }
+  constructor() {}
 
   @HostListener('mousedown')
   onMousedown(): void {
     this.notifyWillChangeSize.emit(true);
-  }
-
-  ngAfterViewInit(): void {
-    this.invisibleExtension.nativeElement.style[this.horizontal ? 'top' : 'left'] =
-      -(7 - this.thickness) / 2 + 'px';
   }
 }

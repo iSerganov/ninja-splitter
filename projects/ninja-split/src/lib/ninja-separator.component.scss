@@ -14,18 +14,6 @@
   background-color: var(--ninja-separator-hover-background-color, #fafafa);
 }
 
-.invisible-extension {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  &.vertical {
-    min-width: 5px;
-  }
-  &.horizontal {
-    min-height: 5px;
-  }
-}
-
 .handle {
   background-color: #eee;
   &.horizontal {
