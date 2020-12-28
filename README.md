@@ -69,7 +69,7 @@ CSS-variable | Responsible for | Default
 ```
 **Import**
 ```typescript
-// Pleas note the module is not in the root
+// Please note the module is not in the root
 import { NinjaSplitterModule } from 'ninja-splitter';
 
 @NgModule({
