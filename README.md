@@ -1,5 +1,14 @@
 # ninja-splitter
 
+<p align="left">
+  <a href="https://www.npmjs.com/package/ninja-splitter">
+    <img src="https://img.shields.io/npm/v/ninja-splitter?color=orange&label=Ninja-splitter%20npm&logo=Ninja-splitter" alt="Ninja-splitter on npm" />
+  </a>
+  <a href="https://www.npmjs.com/package/ninja-splitter">
+    <img src="https://img.shields.io/npm/dt/ninja-splitter" alt="Total downloads of Ninja-splitter" />
+  </a>
+</p>
+
 Splitter component for Angular 9+
 
 
