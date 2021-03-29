@@ -24,7 +24,7 @@ export class NinjaSeparatorComponent {
       return `${this.thickness}px`;
     }
   }
-  @HostBinding('style.hight')
+  @HostBinding('style.height')
   public get height(): string {
     if (this.vertical) {
       return `inherit`;
