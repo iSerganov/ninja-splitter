@@ -15,7 +15,13 @@ import {
 @Component({
   selector: 'ninja-splitter',
   template: '',
-  host: { style: 'height: 100%' },
+  styles: [
+    `
+      :host {
+        height: 100%;
+      }
+    `,
+  ],
 })
 export class NinjaSplitterComponent implements OnChanges, AfterViewInit {
   @ViewChild('primaryComponent', { static: true }) primaryComponent: ElementRef;
@@ -30,11 +36,11 @@ export class NinjaSplitterComponent implements OnChanges, AfterViewInit {
   @Input('secondary-component-toggle') secondaryToggledOff = false;
   @Input('local-storage-key') localStorageKey: string | null = null;
   @Output('on-change')
-  notifySizeDidChange: EventEmitter<any> = new EventEmitter<any>();
+  notifySizeDidChange: EventEmitter<{primary: number, secondary: number}> = new EventEmitter<{primary: number, secondary: number}>();
   @Output('on-begin-resizing')
-  notifyBeginResizing: EventEmitter<any> = new EventEmitter<any>();
+  notifyBeginResizing: EventEmitter<void> = new EventEmitter<void>();
   @Output('on-ended-resizing')
-  notifyEndedResizing: EventEmitter<any> = new EventEmitter<any>();
+  notifyEndedResizing: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(@Self() protected self: ElementRef) {}
 
@@ -42,7 +48,10 @@ export class NinjaSplitterComponent implements OnChanges, AfterViewInit {
   dividerSize = 8.0;
   isResizing = false;
   protected get sizePropertyName(): 'offsetWidth' | 'offsetHeight' {
-    if (this.self.nativeElement.nodeName === 'HORIZONTAL-NINJA') {
+    if (
+      (this.self.nativeElement.nodeName as string).toUpperCase() ===
+      'HORIZONTAL-NINJA'
+    ) {
       return 'offsetHeight';
     } else {
       return 'offsetWidth';
