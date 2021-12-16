@@ -17,7 +17,7 @@ $ npm install ninja-splitter
 ```
 -------
 
-These can take 3 optional configuration values;
+The following configuration properties are available to client code:
 
 Key | Range | Does
 --- | --- | ---
@@ -27,7 +27,7 @@ Key | Range | Does
 `primary-component-toggle` | boolean `true` or `false` (false by default) | Hide the primary component and the separator
 `secondary-component-toggle` | boolean `true` or `false` (false by default) | Hide the secondary component and the separator
 `primary-component-initialratio` | initial value in a ratio of primary/secondary (range 0-1) | The initial size to create the primary pane (secondary will fill the remaining), this value will be over-ridden if a value is found in the local storage.
-`local-storage-key` | string value used as the key  | If this value is present, uses this key withing localstorage to remember the position of the divider bar
+`local-storage-key` | string value used as the local storage key key  | If this value is present the current splitter position will be stored in local storage
 
 
 ## Styling
@@ -69,7 +69,7 @@ CSS-variable | Responsible for | Default
 ```
 **Import**
 ```typescript
-// Pleas note the module is not in the root
+// Please note the module is not in the root
 import { NinjaSplitterModule } from 'ninja-splitter';
 
 @NgModule({
@@ -86,7 +86,7 @@ export class AppModule { }
 
 ## Events
 
-`(on-change)` - emitted when a change in the size of the component happens
+`(on-change)` - emitted on resizing
 
 `(on-begin-resizing)` - emitted when the user begins dragging the separator
 
