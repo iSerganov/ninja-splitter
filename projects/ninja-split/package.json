@@ -1,6 +1,6 @@
 {
   "name": "ninja-splitter",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Convenient and easy to use splitter component for Angular 9+",
   "scripts": {
     "clean": "rm -rf || rmdir /s lib compiled",
@@ -37,7 +37,6 @@
     "@angular/compiler-cli": "^11.2.9",
     "@angular/core": "^11.2.9",
     "@angular/forms": "^11.2.9",
-    "@angular/http": "^7.2.16",
     "@angular/platform-browser": "^11.2.9",
     "@angular/platform-browser-dynamic": "^11.2.9",
     "@angular/platform-server": "^11.2.9",
