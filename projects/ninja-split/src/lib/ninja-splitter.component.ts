@@ -36,7 +36,11 @@ export class NinjaSplitterComponent implements OnChanges, AfterViewInit {
   @Output('on-ended-resizing')
   notifyEndedResizing: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(@Self() protected self: ElementRef) {}
+  public get isHorizontal(): boolean {
+    return this.self.nativeElement.nodeName === 'HORIZONTAL-NINJA';
+  }
+
+  constructor(@Self() protected self: ElementRef) { }
 
   primarySizeBeforeTogglingOff: number;
   dividerSize = 8.0;
